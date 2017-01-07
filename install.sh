@@ -63,10 +63,40 @@ function partition_check()
 		*) echo "Just use Y or N" && partition_check;;
 	esac
 }
+
+function pacstrap_base()
+{
+	pactrap /mnt base base-devel
+}
+
+function gen_fstab()
+{
+	genfstab -U /mnt >> /mnt/etc/fstab
+}
+
+function timezone()
+{
+	ln -s /usr/share/zoneinfo/Europe/Brussels /etc/localtime
+}
+
+
+
 keyboard
+
 boot_verif
+
 internet_check
 clear
+
 #time_sync
+
 partition_check
 clear
+
+pacstrap_base
+
+gen_fstab
+
+timezone
+
+bash packages.sh
