@@ -49,9 +49,9 @@ function partition_check()
 {
 	# Ask if partitionning is needed
 	echo "Do you want to partiton your disk(s) ? (Y/n)"
-	CHOIX_PARTITION="Y"
-	read CHOIX_PARTITION
-	case "$CHOIX_PARTITION" in
+	ANS_PARTITION="Y"
+	read ANS_PARTITION
+	case "$ANS_PARTITION" in
 		Y) bash partitionning.sh
 			;;
 		y) bash partitionning.sh
