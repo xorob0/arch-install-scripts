@@ -8,8 +8,8 @@ function keyboard()
 
 function connect_wifi()
 {
-	systemctl stop dhcpd.service
-	wifi-menu
+	systemctl stop dhcpd.service &> /dev/null
+	wifi-menu &> /dev/null
 	internet_check
 }
 function internet_check()
@@ -17,7 +17,7 @@ function internet_check()
 	# Check internet connection and lauch connection script if not connected
 	if ping -c 1 195.238.2.21 &> /dev/null
 	then
-		echo "No need for a configuration, you are already connected to the internet !"
+		echo "You are connected to the internet !"
 		read a
 	else
 		echo "We need to configure your internet connection."
@@ -34,6 +34,7 @@ function boot_verif()
 		# if not in EFI mode return error 1
 		echo "Please boot in EFI mode"
 		read a
+		#reboot
 		exit
 	fi
 }
@@ -44,21 +45,22 @@ function time_sync()
 	timedatectl set-ntp true &> /dev/null
 }
 
-function partitionning()
+function partition_check()
 {
 	# Ask if partitionning is needed
 	echo "Do you want to partiton your disk(s) ? (Y/n)"
 	CHOIX_PARTITION="Y"
 	read CHOIX_PARTITION
 	case "$CHOIX_PARTITION" in
-		Y) echo "Partitionning"
+		Y) bash partitionning.sh
 			;;
-		y) echo "Partitionning"
+		y) bash partitionning.sh
 			;;
-		N) echo "Not partitionning"
+		N) bash formating.sh
 			;;
-		n) echo "Not partitionning"
+		n) bash formating.sh
 			;;
+		*) echo "Just use Y or N" && partition_check;;
 	esac
 }
 keyboard
@@ -66,4 +68,5 @@ boot_verif
 internet_check
 clear
 #time_sync
-partitionning
+partition_check
+clear
