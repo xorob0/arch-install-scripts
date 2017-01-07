@@ -6,7 +6,13 @@ function keyboard()
 	loadkeys fr &> /dev/null
 }
 
-function internet()
+function connect_wifi()
+{
+	systemctl stop dhcpd.service
+	wifi-menu
+	internet_check
+}
+function internet_check()
 {
 	# Check internet connection and lauch connection script if not connected
 	if ping -c 1 195.238.2.21 &> /dev/null
@@ -16,6 +22,7 @@ function internet()
 	else
 		echo "We need to configure your internet connection."
 		read a
+		connect_wifi
 	fi
 }
 
@@ -43,7 +50,6 @@ function partitionning()
 	echo "Do you want to partiton your disk(s) ? (Y/n)"
 	CHOIX_PARTITION="Y"
 	read CHOIX_PARTITION
-	echo "$CHOIX_PARTITION"
 	case "$CHOIX_PARTITION" in
 		Y) echo "Partitionning"
 			;;
@@ -55,3 +61,9 @@ function partitionning()
 			;;
 	esac
 }
+keyboard
+boot_verif
+internet_check
+clear
+#time_sync
+partitionning
