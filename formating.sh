@@ -68,9 +68,30 @@ function format_home()
 
 function format_swap()
 {
-	#Formating and activating swap
+	# Formating and activating swap
 	mkswap $SWAP &> /dev/null
 	swapon &> /dev/null
+}
+
+function mount_essential()
+{
+	# Mounting root to /mnt
+	mount $ROOT /mnt
+
+	# Creating /mnt/boot
+	mkdir /mnt/boot
+
+	# Mounting boot to /mnt/boot
+	mount $BOOT /mnt/boot
+}
+
+function mount_home()
+{
+	# Creating /mnt/home
+	mkdir /mnt/home
+
+	# Mounting home to /mnt/home
+	mount $HOMEP /mnt/home
 }
 
 ask
