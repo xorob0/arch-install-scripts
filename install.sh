@@ -1,31 +1,5 @@
 #!/bin/bash
 
-function keyboard()
-{
-	# Load azerty keyboard
-	loadkeys fr &> /dev/null
-}
-
-function connect_wifi()
-{
-	systemctl stop dhcpd.service &> /dev/null
-	wifi-menu &> /dev/null
-	internet_check
-}
-function internet_check()
-{
-	# Check internet connection and lauch connection script if not connected
-	if ping -c 1 195.238.2.21 &> /dev/null
-	then
-		echo "You are connected to the internet !"
-		read a
-	else
-		echo "We need to configure your internet connection."
-		read a
-		connect_wifi
-	fi
-}
-
 function boot_verif()
 {
 	# Verify boot mode
@@ -150,12 +124,7 @@ function unmount()
 
 # Using fonctions in the right order
 
-keyboard
-
 #boot_verif
-
-internet_check
-clear
 
 #time_sync
 
