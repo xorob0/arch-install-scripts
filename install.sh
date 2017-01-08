@@ -137,6 +137,11 @@ function create_user()
 	arch-chroot /mnt useradd -m -G wheel -s /bin/bash $USERNAME
 }
 
+function user_script()
+{
+	cp user.sh /mnt/home/$USERNAME/script.sh
+}
+
 function unmount()
 {
 	# Unmounting the partitions before shutdown
