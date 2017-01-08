@@ -140,6 +140,8 @@ function unmount()
 
 # Using fonctions in the right order
 
+clear
+
 #boot_verif
 
 time_sync
@@ -174,4 +176,4 @@ clear
 . ./packages.sh
 clear
 
-reboot
+#reboot

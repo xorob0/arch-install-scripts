@@ -68,8 +68,8 @@ function install_ucode()
 function install_grub()
 {
 	arch-chroot /mnt pacman -S grub grub-customizer os-prober &> /dev/null
-	arch-chroot /mnt grub-install --target=x86_64-efi --efidirectory= --bootloader-id=grub &> /dev/null
-	arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg &> /dev/null
+	#arch-chroot /mnt grub-install --target=x86_64-efi --efidirectory= --bootloader-id=grub &> /dev/null
+	#arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg &> /dev/null
 }
 
 function install_lmt()
@@ -168,5 +168,3 @@ function git_dotfiles()
 
 update
 install_grub
-install_git
-install_yaourt
