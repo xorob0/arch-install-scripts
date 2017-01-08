@@ -28,6 +28,7 @@ function internet_check()
 
 function clean()
 {
+	# Cleaning last files
 	rm formating.sh &> /dev/null
 	rm install.sh &> /dev/null
 	rm partitionning.sh &> /dev/null
@@ -37,11 +38,19 @@ function clean()
 
 function download()
 {
+	# Downloading scripts from github
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/formating.sh &> /dev/null
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/install.sh &> /dev/null
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/partitionning.sh &> /dev/null
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/packages.sh &> /dev/null
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/user.sh &> /dev/null
+
+	# Adding execution right to scripts
+	chmod 755 formating.sh &> /dev/null
+	chmod 755 install.sh &> /dev/null
+	chmod 755 partitionning.sh &> /dev/null
+	chmod 755 packages.sh &> /dev/null
+	chmod 755 user.sh &> /dev/null
 }
 
 # Using fonctions in the right order
