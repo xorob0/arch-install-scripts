@@ -5,7 +5,7 @@ function update()
 	echo "Updating packages..."
 
 	# Update all the packages that need to be updated
-	arch-chroot /mnt pacman -Ssy &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -Ssy &> /dev/null
 }
 
 function install_git()
@@ -14,7 +14,7 @@ function install_git()
 	echo ""
 
 	# Install git and ssh
-	arch-chroot /mnt pacman -S git ssh &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S git ssh &> /dev/null
 
 	# Ask user for its ID
 	echo "Enter your github user name :"
@@ -35,19 +35,19 @@ function install_git()
 function install_i3()
 {
 	# Install the goup i3 and the dependencies of my config
-	arch-chroot /mnt pacman -S i3 j4-dmenu-desktop &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S i3 j4-dmenu-desktop &> /dev/null
 }
 
 function install_sway()
 {
 	# Install sway and the dependecies of my config
-	arch-chroot /mnt pacman -S sway &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S sway &> /dev/null
 }
 
 function install_connman()
 {
 	# Install connman
-	arch-chroot /mnt pacman -S connman &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S connman &> /dev/null
 
 	# Create config file
 	arch-chroot /mnt mkdir /etc/connman &> /dev/null
@@ -62,39 +62,39 @@ function install_connman()
 
 function install_ucode()
 {
-	arch-chroot /mnt pacman -S intel-ucode &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S intel-ucode &> /dev/null
 }
 
 function install_grub()
 {
-	arch-chroot /mnt pacman -S grub grub-customizer os-prober
+	arch-chroot /mnt pacman --noconfirm -S grub grub-customizer os-prober
 	arch-chroot /mnt grub-install --target=x86_64-efi --efidirectory= --bootloader-id=grub &> /dev/null
 	arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg &> /dev/null
 }
 
 function install_lmt()
 {
-	arch-chroot /mnt pacman -S laptop-mode-tool &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S laptop-mode-tool &> /dev/null
 }
 
 function install_mpd()
 {
-	arch-chroot /mnt pacman -S mpd ncmpcpp mpc &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S mpd ncmpcpp mpc &> /dev/null
 }
 
 function install_nvim()
 {
-	arch-chroot /mnt pacman -S neovim &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S neovim &> /dev/null
 }
 
 function install_networkmanager()
 {
-	arch-chroot /mnt pacman -S networkmanager &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S networkmanager &> /dev/null
 }
 
 function install_zsh()
 {
-	arch-chroot /mnt pacman -S zsh &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S zsh &> /dev/null
 }
 
 function install_yaourt()
@@ -108,57 +108,57 @@ function install_yaourt()
 
 function install_ranger()
 {
-	arch-chroot /mnt pacman -S ranger &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S ranger &> /dev/null
 }
 
 function install_deluge()
 {
-	arch-chroot /mnt pacman -S deluge &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S deluge &> /dev/null
 }
 
 function install_virtualbox()
 {
-	arch-chroot /mnt pacman -S virtualbox virtualbox-host-modules-arch &> /dev/null
+	arch-chroot /mnt pacman --noconfirm -S virtualbox virtualbox-host-modules-arch &> /dev/null
 }
 
 function install_zathura()
 {
-	arch-chroot /mnt pacman -S ranger
+	arch-chroot /mnt pacman --noconfirm -S ranger
 }
 
 function install_firefox()
 {
-	arch-chroot /mnt pacman -S firefox
+	arch-chroot /mnt pacman --noconfirm -S firefox
 }
 
 function install_chromium()
 {
-	arch-chroot /mnt pacman -S ranger
+	arch-chroot /mnt pacman --noconfirm -S ranger
 }
 
 function install_transmission()
 {
-	arch-chroot /mnt pacman -S transmission
+	arch-chroot /mnt pacman --noconfirm -S transmission
 }
 
 function install_mpv()
 {
-	arch-chroot /mnt pacman -S mpv
+	arch-chroot /mnt pacman --noconfirm -S mpv
 }
 
 function install_ranger()
 {
-	arch-chroot /mnt pacman -S ranger
+	arch-chroot /mnt pacman --noconfirm -S ranger
 }
 
 function install_ranger()
 {
-	arch-chroot /mnt pacman -S ranger
+	arch-chroot /mnt pacman --noconfirm -S ranger
 }
 
 function install_bonus()
 {
-	arch-chroot /mnt pacman -S android-sdk-platform-tools gucview htop ntfs-3g openssh gparted pinta udiskie usisks2
+	arch-chroot /mnt pacman --noconfirm -S android-sdk-platform-tools gucview htop ntfs-3g openssh gparted pinta udiskie usisks2
 }
 
 function git_dotfiles()
