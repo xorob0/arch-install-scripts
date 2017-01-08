@@ -66,20 +66,84 @@ function partition_check()
 
 function pacstrap_base()
 {
-	pactrap /mnt base base-devel
+	# Installin base
+	pactrap /mnt base base-devel &> /dev/null
 }
 
 function gen_fstab()
 {
-	genfstab -U /mnt >> /mnt/etc/fstab
+	# Generating fstab
+	genfstab -U /mnt >> /mnt/etc/fstab &> /dev/null
 }
 
 function timezone()
 {
-	ln -s /usr/share/zoneinfo/Europe/Brussels /etc/localtime
+	# Use Bruxelles time
+	arch-chroot /mnt ln -s /usr/share/zoneinfo/Europe/Brussels /etc/localtime &> /dev/null
+
+	# Sync hardware clock
+	arch-chroot /mnt hwclock --systohc &> /dev/null
 }
 
+function local_gen()
+{
+	# Uncomment en_US.UTF-8 and fr_BE.UTF-8 frome /etc/locale.gen
+	arch-chroot /mnt sed -i '/#en_US.UTF-8/s/^#//g' /etc/locale.gen &> /dev/null
+	arch-chroot /mnt sed -i '/#fr_BE.UTF-8/s/^#//g' /etc/locale.gen &> /dev/null
 
+	# Generate locale
+	arch-chroot /mnt locale-gen &> /dev/null
+
+	# Set en_US.UTF-8 as default locale
+	arch-chroot /mnt rm /etc/locale.conf &> /dev/null
+	arch-chroot /mnt echo "LANG=en_US.UTF-8" >> /etc/locale.conf &> /dev/null
+
+	# Set keyboard to azerty in console
+	arch-chroot /mnt rm /etc/vconsole.conf &> /dev/null
+	arch-chroot /mnt echo "KEYMAP=fr" >> /etc/vconsole.conf &> /dev/null
+}
+
+function hostname_gen()
+{
+	echo "What is the hostname of this machine ?"
+	read NAME
+
+	# Set hostname in /etc/hostname
+	arch-chroot /mnt rm /etc/hostname &> /dev/null
+	arch-chroot /mnt echo "$NAME" >> /etc/hostname &> /dev/null
+
+	# Set hostname in /etc/hosts
+	arch-chroot /mnt echo "127.0.0.1	$NAME.localdomain	$NAME" >> /etc/hosts &> /dev/null
+}
+
+function mkinit()
+{
+	# Make init for kernel linux
+	arch-chroot /mnt mkinitcpio -p linux &> /dev/null
+}
+
+function pass()
+{
+	# Set root Password
+	arch-chroot /mnt passwd
+}
+
+function create_user()
+{
+	echo "Enter your username"
+	read $USERNAME
+
+	# Adding the user to the group wheel
+	arch-chroot /mnt useradd -m -G wheel -s /bin/bash $USERNAME
+}
+
+function unmount()
+{
+	# Unmounting the partitions before shutdown
+	umount -R /mnt &> /dev/null
+}
+
+# Using fonctions in the right order
 
 keyboard
 
@@ -99,4 +163,19 @@ gen_fstab
 
 timezone
 
+locale_gen
+
+hostname_gen
+
+mkinit
+
+pass
+clear
+
+create_user
+clear
+
 bash packages.sh
+clear
+
+reboot
