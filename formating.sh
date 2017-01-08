@@ -99,11 +99,13 @@ ask
 clear
 
 format_essential
+mount_essential
 
 # Only try to format home if it exist
 if [ ! -z "$HOMEP" ]
 then
 	format_home
+	mount_home
 fi
 
 # Only try to format swap if it exist
