@@ -67,7 +67,7 @@ function install_ucode()
 
 function install_grub()
 {
-	arch-chroot /mnt pacman --noconfirm -S grub grub-customizer os-prober
+	arch-chroot /mnt pacman --noconfirm -S grub os-prober
 	arch-chroot /mnt grub-install --target=x86_64-efi --efidirectory= --bootloader-id=grub &> /dev/null
 	arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg &> /dev/null
 }
