@@ -48,10 +48,15 @@ function download()
 
 	# Downloading scripts from github
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/formating.sh
+	clear
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/install.sh
+	clear
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/partitionning.sh
+	clear
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/packages.sh
+	clear
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/user.sh
+	clear
 
 	# Adding execution right to scripts
 	chmod 755 formating.sh &> /dev/null

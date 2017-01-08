@@ -146,6 +146,7 @@ clear
 #boot_verif
 
 time_sync
+clear
 
 partition_check
 clear
