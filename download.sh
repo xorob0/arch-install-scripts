@@ -9,7 +9,7 @@ function keyboard()
 function connect_wifi()
 {
 	systemctl stop dhcpd.service &> /dev/null
-	wifi-menu &> /dev/null
+	wifi-menu
 	internet_check
 }
 function internet_check()
