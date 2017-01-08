@@ -16,7 +16,7 @@ function partition_disk()
 function verify_partitionning()
 {
 	# List available partitions
-	fdisk -l
+	fdisk -l $DISK_NUMBER
 	echo "Are you sure of your partitonning ? (Y/n)"
 	read ANS_SURE
 	case $ANS_SURE in
