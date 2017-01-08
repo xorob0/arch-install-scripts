@@ -44,7 +44,7 @@ function pacstrap_base()
 {
 	echo "Installing base..."
 	# Installin base
-	pacstrap /mnt base base-devel &> /dev/null
+	pacstrap /mnt base base-devel #&> /dev/null
 }
 
 function gen_fstab()
