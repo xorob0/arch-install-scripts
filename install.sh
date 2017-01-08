@@ -142,7 +142,7 @@ function unmount()
 
 #boot_verif
 
-#time_sync
+time_sync
 
 partition_check
 clear
