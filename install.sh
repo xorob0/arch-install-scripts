@@ -152,7 +152,7 @@ function unmount()
 
 keyboard
 
-boot_verif
+#boot_verif
 
 internet_check
 clear
