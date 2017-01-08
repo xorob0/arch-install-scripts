@@ -73,7 +73,7 @@ function pacstrap_base()
 function gen_fstab()
 {
 	# Generating fstab
-	genfstab -U /mnt >> /mnt/etc/fstab &> /dev/null
+	genfstab -L /mnt >> /mnt/etc/fstab &> /dev/null
 }
 
 function timezone()
