@@ -19,6 +19,7 @@ function verify_partitionning()
 	fdisk -l $DISK_NUMBER
 	echo "Are you sure of your partitonning ? (Y/n)"
 	read ANS_SURE
+	clear
 	case $ANS_SURE in
 		# If sure, go on to the formating
 		Y) . ./formating.sh
