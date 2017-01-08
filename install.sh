@@ -41,13 +41,13 @@ function partition_check()
 function pacstrap_base()
 {
 	# Installin base
-	pactrap /mnt base base-devel #&> /dev/null
+	pacstrap /mnt base base-devel &> /dev/null
 }
 
 function gen_fstab()
 {
 	# Generating fstab
-	genfstab -L /mnt >> /mnt/etc/fstab # &> /dev/null
+	genfstab -L /mnt >> /mnt/etc/fstab &> /dev/null
 }
 
 function timezone()
