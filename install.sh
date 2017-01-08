@@ -52,13 +52,13 @@ function partition_check()
 	ANS_PARTITION="Y"
 	read ANS_PARTITION
 	case "$ANS_PARTITION" in
-		Y) . partitionning.sh
+		Y) . ./partitionning.sh
 			;;
-		y) . partitionning.sh
+		y) . ./partitionning.sh
 			;;
-		N) . formating.sh
+		N) . ./formating.sh
 			;;
-		n) . formating.sh
+		n) . ./formating.sh
 			;;
 		*) echo "Just use Y or N" && partition_check;;
 	esac
@@ -180,7 +180,7 @@ clear
 create_user
 clear
 
-. packages.sh
+. ./packages.sh
 clear
 
 reboot

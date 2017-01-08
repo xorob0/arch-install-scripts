@@ -21,9 +21,9 @@ function verify_partitionning()
 	read ANS_SURE
 	case $ANS_SURE in
 		# If sure, go on to the formating
-		Y) . formating.sh
+		Y) . ./formating.sh
 			;;
-		y) . formating.sh
+		y) . ./formating.sh
 			;;
 		# If unsure, start over
 		N) ask_disk
