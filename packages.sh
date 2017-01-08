@@ -16,15 +16,15 @@ function install_git()
 	read GIT_USERNAME
 	echo "Enter your github email"
 	read GIT_EMAIL
-	echo "Enter your git password"
-	read GIT_PASS
+	# echo "Enter your git password"
+	# read GIT_PASS
 
 	# Configure git
 	arch-chroot /mnt git config --global user.name ""$GIT_USERNAME""
 	arch-chroot /mnt git config --global user.email ""$GIT_EMAIL""
 
 	# Configure ssh
-	arch-chroot /mnt su - $USER -c "ssh-keygen"
+	arch-chroot /mnt su - $USERNAME -c "ssh-keygen"
 }
 
 function install_i3()
@@ -35,14 +35,17 @@ function install_i3()
 
 function install_sway()
 {
+	# Install sway and the dependecies of my config
 	arch-chroot /mnt pacman -S sway
-	arch-chroot /mnt wget -O /etc/sway/config
 }
 
 function install_connman()
 {
+	# Install connman
 	arch-chroot /mnt pacman -S connman
-	arch-chroot /mnt
+	arch-chroot /mnt mkdir /etc/connman
+	arch-chroot /mnt echo "[General]" >> /etc/connman/main.conf
+	arch-chroot /mnt echo "PreferrefTechnologies=ethernet,wifi" >> /etc/connman/main.conf
 }
 
 function install_ucode()
