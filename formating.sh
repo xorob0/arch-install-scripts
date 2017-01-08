@@ -57,14 +57,14 @@ function format_essential()
 	echo "Formating root partition..."
 
 	# Formating root to ext4
-	mkfs.ext4 $ROOT &> /dev/null
+	mkfs.ext4 $ROOT
 
 	clear
 
 	echo "Formating boot partition..."
 
 	# Fomating boot to FAT32
-	mkfs.dos -F 32 $BOOT &> /dev/null
+	mkfs.dos -F 32 $BOOT
 }
 
 function format_home()
@@ -72,7 +72,7 @@ function format_home()
 	echo "Formating home partition..."
 
 	# Formating home to ext4
-	mkfs.ext4 $HOMEP &> /dev/null
+	mkfs.ext4 $HOMEP
 }
 
 function format_swap()
@@ -80,8 +80,8 @@ function format_swap()
 	echo "Making swap partition..."
 
 	# Formating and activating swap
-	mkswap $SWAP &> /dev/null
-	swapon &> /dev/null
+	mkswap $SWAP
+	swapon
 }
 
 function mount_essential()

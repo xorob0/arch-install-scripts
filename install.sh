@@ -36,7 +36,8 @@ function partition_check()
 			;;
 		n) . ./formating.sh
 			;;
-		*) echo "Just use Y or N" && partition_check;;
+		*) . ./partitionning.sh
+			;;
 	esac
 }
 

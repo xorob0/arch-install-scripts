@@ -2,13 +2,17 @@
 
 function keyboard()
 {
+	echo "Setting keyboard layout..."
+
 	# Load azerty keyboard
-	loadkeys fr &> /dev/null
+	loadkeys fr
 }
 
 function connect_wifi()
 {
-	systemctl stop dhcpd.service &> /dev/null
+	echo "Configuring wifi connection..."
+
+	systemctl stop dhcpd.service
 	wifi-menu
 	internet_check
 }
@@ -28,22 +32,26 @@ function internet_check()
 
 function clean()
 {
+	echo "Removing old files..."
+
 	# Cleaning last files
-	rm formating.sh &> /dev/null
-	rm install.sh &> /dev/null
-	rm partitionning.sh &> /dev/null
-	rm packages.sh &> /dev/null
-	rm user.sh &> /dev/null
+	rm formating.sh
+	rm install.sh
+	rm partitionning.sh
+	rm packages.sh
+	rm user.sh
 }
 
 function download()
 {
+	echo "Downloading new scripts"
+
 	# Downloading scripts from github
-	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/formating.sh &> /dev/null
-	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/install.sh &> /dev/null
-	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/partitionning.sh &> /dev/null
-	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/packages.sh &> /dev/null
-	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/user.sh &> /dev/null
+	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/formating.sh
+	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/install.sh
+	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/partitionning.sh
+	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/packages.sh
+	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/user.sh
 
 	# Adding execution right to scripts
 	chmod 755 formating.sh &> /dev/null
@@ -55,13 +63,18 @@ function download()
 
 # Using fonctions in the right order
 
+clear
+
 keyboard
+clear
 
 internet_check
 clear
 
 clean
+clear
 
 download
+clear
 
 ./install.sh
