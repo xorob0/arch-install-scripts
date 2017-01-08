@@ -54,8 +54,14 @@ function ask()
 
 function format_essential()
 {
+	echo "Formating root partition..."
+
 	# Formating root to ext4
 	mkfs.ext4 $ROOT &> /dev/null
+
+	clear
+
+	echo "Formating boot partition..."
 
 	# Fomating boot to FAT32
 	mkfs.dos -F 32 $BOOT &> /dev/null
@@ -63,12 +69,16 @@ function format_essential()
 
 function format_home()
 {
+	echo "Formating home partition..."
+
 	# Formating home to ext4
 	mkfs.ext4 $HOMEP &> /dev/null
 }
 
 function format_swap()
 {
+	echo "Making swap partition..."
+
 	# Formating and activating swap
 	mkswap $SWAP &> /dev/null
 	swapon &> /dev/null
@@ -76,8 +86,14 @@ function format_swap()
 
 function mount_essential()
 {
+	echo "Mounting root partition..."
+
 	# Mounting root to /mnt
 	mount $ROOT /mnt
+
+	clear
+
+	echo "Mounting boot partition..."
 
 	# Creating /mnt/boot
 	mkdir /mnt/boot
@@ -88,6 +104,8 @@ function mount_essential()
 
 function mount_home()
 {
+	echo "Mounting home patition..."
+
 	# Creating /mnt/home
 	mkdir /mnt/home
 
@@ -99,17 +117,22 @@ ask
 clear
 
 format_essential
+clear
 mount_essential
+clear
 
 # Only try to format home if it exist
 if [ ! -z "$HOMEP" ]
 then
 	format_home
+	clear
 	mount_home
+	clear
 fi
 
 # Only try to format swap if it exist
 if [ ! -z "$SWAP" ]
 then
 	format_swap
+	clear
 fi

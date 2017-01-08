@@ -15,6 +15,8 @@ function boot_verif()
 
 function time_sync()
 {
+	echo "Updating system clock..."
+
 	# Update the system clock
 	timedatectl set-ntp true &> /dev/null
 }
@@ -40,18 +42,23 @@ function partition_check()
 
 function pacstrap_base()
 {
+	echo "Installing base..."
 	# Installin base
 	pacstrap /mnt base base-devel &> /dev/null
 }
 
 function gen_fstab()
 {
+	echo "Generating fstab..."
+
 	# Generating fstab
 	genfstab -L /mnt >> /mnt/etc/fstab &> /dev/null
 }
 
 function timezone()
 {
+	echo "Synchronysing timezone..."
+
 	# Use Bruxelles time
 	arch-chroot /mnt ln -s /usr/share/zoneinfo/Europe/Brussels /etc/localtime &> /dev/null
 
@@ -61,6 +68,8 @@ function timezone()
 
 function locale_gen()
 {
+	echo "Generating locale..."
+
 	# Uncomment en_US.UTF-8 and fr_BE.UTF-8 frome /etc/locale.gen
 	arch-chroot /mnt sed -i '/#en_US.UTF-8/s/^#//g' /etc/locale.gen &> /dev/null
 	arch-chroot /mnt sed -i '/#fr_BE.UTF-8/s/^#//g' /etc/locale.gen &> /dev/null
@@ -92,6 +101,8 @@ function hostname_gen()
 
 function mkinit()
 {
+	echo "Making init..."
+
 	# Make init for kernel linux
 	arch-chroot /mnt mkinitcpio -p linux &> /dev/null
 }
@@ -113,11 +124,16 @@ function create_user()
 
 function user_script()
 {
+	echo "Copying user script..."
+
+	# Copying user.sh to new home
 	cp user.sh /mnt/home/$USERNAME/script.sh
 }
 
 function unmount()
 {
+	echo "Unmounting..."
+
 	# Unmounting the partitions before shutdown
 	umount -R /mnt &> /dev/null
 }
@@ -132,16 +148,22 @@ partition_check
 clear
 
 pacstrap_base
+clear
 
 gen_fstab
+clear
 
 timezone
+clear
 
 locale_gen
+clear
 
 hostname_gen
+clear
 
 mkinit
+clear
 
 pass
 clear
