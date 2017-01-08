@@ -73,7 +73,7 @@ function pacstrap_base()
 function gen_fstab()
 {
 	# Generating fstab
-	genfstab -L /mnt >> /mnt/etc/fstab &> /dev/null
+	genfstab -L /mnt >> /mnt/etc/fstab # &> /dev/null
 }
 
 function timezone()
@@ -85,7 +85,7 @@ function timezone()
 	arch-chroot /mnt hwclock --systohc &> /dev/null
 }
 
-function local_gen()
+function locale_gen()
 {
 	# Uncomment en_US.UTF-8 and fr_BE.UTF-8 frome /etc/locale.gen
 	arch-chroot /mnt sed -i '/#en_US.UTF-8/s/^#//g' /etc/locale.gen &> /dev/null
