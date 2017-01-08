@@ -18,7 +18,9 @@ function time_sync()
 	echo "Updating system clock..."
 
 	# Update the system clock
-	timedatectl set-ntp true &> /dev/null
+	timedatectl set-ntp true
+
+	read a
 }
 
 function partition_check()
@@ -44,8 +46,9 @@ function partition_check()
 function pacstrap_base()
 {
 	echo "Installing base..."
+
 	# Installin base
-	pacstrap /mnt base base-devel #&> /dev/null
+	pacstrap /mnt base base-devel
 }
 
 function gen_fstab()
@@ -53,7 +56,9 @@ function gen_fstab()
 	echo "Generating fstab..."
 
 	# Generating fstab
-	genfstab -L /mnt >> /mnt/etc/fstab &> /dev/null
+	genfstab -L /mnt >> /mnt/etc/fstab
+
+	read a
 }
 
 function timezone()
@@ -61,10 +66,12 @@ function timezone()
 	echo "Synchronysing timezone..."
 
 	# Use Bruxelles time
-	arch-chroot /mnt ln -s /usr/share/zoneinfo/Europe/Brussels /etc/localtime &> /dev/null
+	arch-chroot /mnt ln -s /usr/share/zoneinfo/Europe/Brussels /etc/localtime
 
 	# Sync hardware clock
-	arch-chroot /mnt hwclock --systohc &> /dev/null
+	arch-chroot /mnt hwclock --systohc
+
+	read a
 }
 
 function locale_gen()
@@ -72,19 +79,27 @@ function locale_gen()
 	echo "Generating locale..."
 
 	# Uncomment en_US.UTF-8 and fr_BE.UTF-8 frome /etc/locale.gen
-	arch-chroot /mnt sed -i '/#en_US.UTF-8/s/^#//g' /etc/locale.gen &> /dev/null
-	arch-chroot /mnt sed -i '/#fr_BE.UTF-8/s/^#//g' /etc/locale.gen &> /dev/null
+	arch-chroot /mnt sed -i '/#en_US.UTF-8/s/^#//g' /etc/locale.gen
+	arch-chroot /mnt sed -i '/#fr_BE.UTF-8/s/^#//g' /etc/locale.gen
+
+	read a
 
 	# Generate locale
-	arch-chroot /mnt locale-gen &> /dev/null
+	arch-chroot /mnt locale-gen
+
+	read a
 
 	# Set en_US.UTF-8 as default locale
-	arch-chroot /mnt rm /etc/locale.conf &> /dev/null
-	arch-chroot /mnt echo "LANG=en_US.UTF-8" >> /etc/locale.conf &> /dev/null
+	arch-chroot /mnt rm /etc/locale.conf
+	arch-chroot /mnt echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+
+	read a
 
 	# Set keyboard to azerty in console
-	arch-chroot /mnt rm /etc/vconsole.conf &> /dev/null
-	arch-chroot /mnt echo "KEYMAP=fr" >> /etc/vconsole.conf &> /dev/null
+	arch-chroot /mnt rm /etc/vconsole.conf
+	arch-chroot /mnt echo "KEYMAP=fr" >> /etc/vconsole.conf
+
+	read a
 }
 
 function hostname_gen()
@@ -93,11 +108,15 @@ function hostname_gen()
 	read NAME
 
 	# Set hostname in /etc/hostname
-	arch-chroot /mnt rm /etc/hostname &> /dev/null
-	arch-chroot /mnt echo "$NAME" >> /etc/hostname &> /dev/null
+	arch-chroot /mnt rm /etc/hostname
+	arch-chroot /mnt echo "$NAME" >> /etc/hostname
+
+	read a
 
 	# Set hostname in /etc/hosts
-	arch-chroot /mnt echo "127.0.0.1	$NAME.localdomain	$NAME" >> /etc/hosts &> /dev/null
+	arch-chroot /mnt echo "127.0.0.1	$NAME.localdomain	$NAME" >> /etc/hosts
+
+	read a
 }
 
 function mkinit()
@@ -105,13 +124,18 @@ function mkinit()
 	echo "Making init..."
 
 	# Make init for kernel linux
-	arch-chroot /mnt mkinitcpio -p linux &> /dev/null
+	arch-chroot /mnt mkinitcpio -p linux
+
+	read a
 }
 
 function pass()
 {
 	# Set root Password
+
+	echo "Setting root password..."
 	arch-chroot /mnt passwd
+
 }
 
 function create_user()
@@ -121,6 +145,14 @@ function create_user()
 
 	# Adding the user to the group wheel
 	arch-chroot /mnt useradd -m -G wheel -s /bin/bash $USERNAME
+
+	read a
+
+	clear
+
+	arch-chroot /mnt passwd $USERNAME
+
+	read a
 }
 
 function user_script()
@@ -129,6 +161,8 @@ function user_script()
 
 	# Copying user.sh to new home
 	cp user.sh /mnt/home/$USERNAME/script.sh
+
+	read a
 }
 
 function unmount()
@@ -136,7 +170,7 @@ function unmount()
 	echo "Unmounting..."
 
 	# Unmounting the partitions before shutdown
-	umount -R /mnt &> /dev/null
+	umount -R /mnt
 }
 
 # Using fonctions in the right order
@@ -177,5 +211,7 @@ clear
 
 . ./packages.sh
 clear
+
+unmount
 
 #reboot
