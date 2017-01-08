@@ -4,6 +4,7 @@ function ask_sure()
 {
 	# Ask user to verify the partitions
 	fdisk -l
+	echo ""
 	echo "root = $ROOT"
 	echo "home = $HOMEP"
 	echo "boot = $BOOT"
