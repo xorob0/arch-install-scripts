@@ -43,9 +43,16 @@ function install_connman()
 {
 	# Install connman
 	arch-chroot /mnt pacman -S connman
+
+	# Create config file
 	arch-chroot /mnt mkdir /etc/connman
 	arch-chroot /mnt echo "[General]" >> /etc/connman/main.conf
+
+	# Add config to prefer ethernet over wifi
 	arch-chroot /mnt echo "PreferrefTechnologies=ethernet,wifi" >> /etc/connman/main.conf
+
+	# Add config to blacklist vitual interfaces
+	arch-chroot /mnt echo "NetworkInterfaceBlacklist=vmnet,vboxnet,virbr,ifb,docker,veth,eth,wlan" >> /etc/connman/main.conf
 }
 
 function install_ucode()
@@ -151,4 +158,5 @@ function install_bonus()
 
 function git_dotfiles()
 {
+	arch-chroot /mnt cd /home/$USERNAME && git clone git@github.com:xorob0/dotfiles.git
 }
