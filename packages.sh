@@ -113,7 +113,7 @@ function install_deluge()
 
 function install_virtualbox()
 {
-	arch-chroot /mnt pacman -S virtualbox
+	arch-chroot /mnt pacman -S virtualbox virtualbox-host-modules-arch
 }
 
 function install_zathura()
