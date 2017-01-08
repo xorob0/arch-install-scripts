@@ -10,7 +10,7 @@ function ask_disk()
 function partition_disk()
 {
 	# Launch interactive partitionning tool
-	cfdisk $DISK_NUMBER &> /dev/null
+	cfdisk $DISK_NUMBER
 }
 
 function verify_partitionning()
