@@ -41,7 +41,7 @@ function partition_check()
 function pacstrap_base()
 {
 	# Installin base
-	pactrap /mnt base base-devel &> /dev/null
+	pactrap /mnt base base-devel #&> /dev/null
 }
 
 function gen_fstab()
