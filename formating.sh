@@ -113,6 +113,8 @@ function mount_home()
 	mount $HOMEP /mnt/home
 }
 
+clear
+
 ask
 clear
 

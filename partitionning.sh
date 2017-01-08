@@ -34,6 +34,8 @@ function verify_partitionning()
 	esac
 }
 
+clear
+
 ask_disk
 clear
 
