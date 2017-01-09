@@ -72,8 +72,15 @@ function install_grub()
 	# Installing GRUB anf os-prober
 	arch-chroot /mnt pacman --noconfirm -S grub os-prober
 
-	# Installing GRUB to disk
-	arch-chroot /mnt grub-install --target=x86_64-efi --efidirectory= --bootloader-id=grub
+	# If on an EFI system, install grub for EFI
+	if [ ! -d "/sys/firmware/efi/efivars/" ]
+	then
+		# Installing GRUB EFI to disk
+		arch-chroot /mnt grub-install --target=x86_64-efi --efidirectory= --bootloader-id=grub
+	else
+		# Installing GRUB BIOS to disk
+		arch-chroot /mnt grub-install --target=i386-pc /dev/sda
+	fi
 
 	# Generating GRUB config file
 	arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
