@@ -21,7 +21,7 @@ function ask_sure()
 			;;
 		n) ask
 			;;
-		*) echo "Please use Y or N" && ask_sure
+		*) :
 			;;
 	esac
 }

@@ -44,7 +44,7 @@ function clean()
 
 function download()
 {
-	echo "Downloading new scripts"
+	echo "Downloading new scripts..."
 
 	# Downloading scripts from github
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/formating.sh
@@ -57,6 +57,8 @@ function download()
 	clear
 	wget https://raw.githubusercontent.com/xorob0/arch-install-scripts/master/user.sh
 	clear
+
+	echo "Setting rights for the new scripts..."
 
 	# Adding execution right to scripts
 	chmod 755 formating.sh &> /dev/null

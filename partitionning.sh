@@ -29,8 +29,9 @@ function verify_partitionning()
 		# If unsure, start over
 		N) ask_disk
 			;;
-		Y) ask_disk
+		n) ask_disk
 			;;
+		*) . ./formating.sh
 	esac
 }
 

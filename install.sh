@@ -19,8 +19,6 @@ function time_sync()
 
 	# Update the system clock
 	timedatectl set-ntp true
-
-	read a
 }
 
 function partition_check()
