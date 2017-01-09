@@ -56,7 +56,7 @@ function gen_fstab()
 	echo "Generating fstab..."
 
 	# Generating fstab
-	genfstab -L /mnt >> /mnt/etc/fstab
+	genfstab -U /mnt >> /mnt/etc/fstab
 
 	read a
 }
@@ -90,14 +90,14 @@ function locale_gen()
 	read a
 
 	# Set en_US.UTF-8 as default locale
-	arch-chroot /mnt rm /etc/locale.conf
-	arch-chroot /mnt echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+	rm /etc/locale.conf
+	echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 
 	read a
 
 	# Set keyboard to azerty in console
-	arch-chroot /mnt rm /etc/vconsole.conf
-	arch-chroot /mnt echo "KEYMAP=fr" >> /etc/vconsole.conf
+	rm /etc/vconsole.conf
+	echo "KEYMAP=fr" >> /etc/vconsole.conf
 
 	read a
 }
@@ -108,13 +108,13 @@ function hostname_gen()
 	read NAME
 
 	# Set hostname in /etc/hostname
-	arch-chroot /mnt rm /etc/hostname
-	arch-chroot /mnt echo "$NAME" >> /etc/hostname
+	rm /etc/hostname
+	echo "$NAME" >> /etc/hostname
 
 	read a
 
 	# Set hostname in /etc/hosts
-	arch-chroot /mnt echo "127.0.0.1	$NAME.localdomain	$NAME" >> /etc/hosts
+	echo "127.0.0.1	$NAME.localdomain	$NAME" >> /etc/hosts
 
 	read a
 }
@@ -141,7 +141,7 @@ function pass()
 function create_user()
 {
 	echo "Enter your username"
-	read $USERNAME
+	read USERNAME
 
 	# Adding the user to the group wheel
 	arch-chroot /mnt useradd -m -G wheel -s /bin/bash $USERNAME

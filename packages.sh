@@ -14,7 +14,7 @@ function install_git()
 	echo ""
 
 	# Install git and ssh
-	arch-chroot /mnt pacman --noconfirm -S git ssh
+	arch-chroot /mnt pacman --noconfirm -S git openssh
 
 	# Ask user for its ID
 	echo "Enter your github user name :"
