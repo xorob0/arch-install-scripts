@@ -52,15 +52,16 @@ function ask()
 	ask_sure
 }
 
-function format_essential()
+function format_root()
 {
 	echo "Formating root partition..."
 
 	# Formating root to ext4
 	mkfs.ext4 $ROOT
+}
 
-	clear
-
+function format_boot()
+{
 	echo "Formating boot partition..."
 
 	# Fomating boot to FAT32
@@ -84,15 +85,16 @@ function format_swap()
 	swapon
 }
 
-function mount_essential()
+function mount_root()
 {
 	echo "Mounting root partition..."
 
 	# Mounting root to /mnt
 	mount $ROOT /mnt
+}
 
-	clear
-
+function mount_boot()
+{
 	echo "Mounting boot partition..."
 
 	# Creating /mnt/boot
@@ -118,10 +120,19 @@ clear
 ask
 clear
 
-format_essential
+format_root
 clear
-mount_essential
+mount_root
 clear
+
+# Only try to format boot if it exist
+if [ ! -z "$BOOT" ]
+then
+	format_boot
+	clear
+	mount_boot
+	clear
+fi
 
 # Only try to format home if it exist
 if [ ! -z "$HOMEP" ]
