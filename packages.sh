@@ -76,7 +76,7 @@ function install_grub()
 	if [ ! -d "/sys/firmware/efi/efivars/" ]
 	then
 		# Installing GRUB EFI to disk
-		arch-chroot /mnt grub-install --target=x86_64-efi --efidirectory= --bootloader-id=grub
+		arch-chroot /mnt grub-install --target=x86_64-efi --efidirectory= --bootloader-id=grub /dev/sda
 	else
 		# Installing GRUB BIOS to disk
 		arch-chroot /mnt grub-install --target=i386-pc /dev/sda
@@ -184,4 +184,4 @@ update
 install_git
 install yaourt
 install_sway
-install grub
+install_grub
