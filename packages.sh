@@ -73,7 +73,7 @@ function install_grub()
 	arch-chroot /mnt pacman --noconfirm -S grub os-prober
 
 	# If on an EFI system, install grub for EFI
-	if [ ! -d "/sys/firmware/efi/efivars/" ]
+	if [ -d "/sys/firmware/efi/efivars/" ]
 	then
 		# Installing GRUB EFI to disk
 		arch-chroot /mnt grub-install --target=x86_64-efi --efidirectory= --bootloader-id=grub /dev/sda
