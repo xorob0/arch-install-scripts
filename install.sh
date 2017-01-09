@@ -140,8 +140,6 @@ function user_script()
 
 	# Copying user.sh to new home
 	cp user.sh /mnt/home/$USERNAME/script.sh
-
-	read a
 }
 
 function unmount()
