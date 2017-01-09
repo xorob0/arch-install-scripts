@@ -51,13 +51,13 @@ function install_connman()
 
 	# Create config file
 	arch-chroot /mnt mkdir /etc/connman
-	echo "[General]" >> /etc/connman/main.conf
+	echo "[General]" >> /mnt/etc/connman/main.conf
 
 	# Add config to prefer ethernet over wifi
-	echo "PreferrefTechnologies=ethernet,wifi" >> /etc/connman/main.conf
+	echo "PreferrefTechnologies=ethernet,wifi" >> /mnt/etc/connman/main.conf
 
 	# Add config to blacklist vitual interfaces
-	echo "NetworkInterfaceBlacklist=vmnet,vboxnet,virbr,ifb,docker,veth,eth,wlan" >> /etc/connman/main.conf
+	echo "NetworkInterfaceBlacklist=vmnet,vboxnet,virbr,ifb,docker,veth,eth,wlan" >> /mnt/etc/connman/main.conf
 }
 
 function install_ucode()

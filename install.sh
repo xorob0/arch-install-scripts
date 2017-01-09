@@ -55,8 +55,6 @@ function gen_fstab()
 
 	# Generating fstab
 	genfstab -U /mnt >> /mnt/etc/fstab
-
-	read a
 }
 
 function timezone()
@@ -68,8 +66,6 @@ function timezone()
 
 	# Sync hardware clock
 	arch-chroot /mnt hwclock --systohc
-
-	read a
 }
 
 function locale_gen()
@@ -80,24 +76,16 @@ function locale_gen()
 	arch-chroot /mnt sed -i '/#en_US.UTF-8/s/^#//g' /etc/locale.gen
 	arch-chroot /mnt sed -i '/#fr_BE.UTF-8/s/^#//g' /etc/locale.gen
 
-	read a
-
 	# Generate locale
 	arch-chroot /mnt locale-gen
 
-	read a
-
 	# Set en_US.UTF-8 as default locale
-	rm /etc/locale.conf
-	echo "LANG=en_US.UTF-8" >> /etc/locale.conf
-
-	read a
+	rm /mnt/etc/locale.conf
+	echo "LANG=en_US.UTF-8" >> /mnt/etc/locale.conf
 
 	# Set keyboard to azerty in console
 	rm /etc/vconsole.conf
-	echo "KEYMAP=fr" >> /etc/vconsole.conf
-
-	read a
+	echo "KEYMAP=fr" >> /mnt/etc/vconsole.conf
 }
 
 function hostname_gen()
@@ -106,15 +94,11 @@ function hostname_gen()
 	read NAME
 
 	# Set hostname in /etc/hostname
-	rm /etc/hostname
-	echo "$NAME" >> /etc/hostname
-
-	read a
+	rm /mnt/etc/hostname
+	echo "$NAME" >> /mnt/etc/hostname
 
 	# Set hostname in /etc/hosts
-	echo "127.0.0.1	$NAME.localdomain	$NAME" >> /etc/hosts
-
-	read a
+	echo "127.0.0.1	$NAME.localdomain	$NAME" >> /mnt/etc/hosts
 }
 
 function mkinit()
@@ -123,15 +107,13 @@ function mkinit()
 
 	# Make init for kernel linux
 	arch-chroot /mnt mkinitcpio -p linux
-
-	read a
 }
 
 function pass()
 {
-	# Set root Password
-
 	echo "Setting root password..."
+
+	# Set root Password
 	arch-chroot /mnt passwd
 
 }
@@ -144,13 +126,12 @@ function create_user()
 	# Adding the user to the group wheel
 	arch-chroot /mnt useradd -m -G wheel -s /bin/bash $USERNAME
 
-	read a
-
 	clear
 
-	arch-chroot /mnt passwd $USERNAME
+	echo "Setting user password"
 
-	read a
+	# Set user password
+	arch-chroot /mnt passwd $USERNAME
 }
 
 function user_script()
