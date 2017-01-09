@@ -184,3 +184,4 @@ update
 install_git
 install yaourt
 install_sway
+install grub
