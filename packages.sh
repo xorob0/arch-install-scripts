@@ -183,5 +183,5 @@ function git_dotfiles()
 update
 install_git
 install yaourt
-install_sway
+install_i3
 install_grub
